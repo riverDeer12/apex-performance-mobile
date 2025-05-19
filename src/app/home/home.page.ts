@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonTab,
   IonTabButton,
