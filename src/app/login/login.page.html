@@ -21,7 +21,13 @@
           formControlName="password"
         ></ion-input>
 
-        <ion-button class="ion-padding-top" type="submit" [disabled]="loadingData">Login</ion-button>
+        <ion-button type="submit" class="ion-padding-top" fill="outline" color="primary" expand="full"
+                    [disabled]="loadingData">
+          <span *ngIf="!loadingData">Login</span>
+          <ion-icon *ngIf="!loadingData" name="log-in-outline"></ion-icon>
+          <ion-spinner *ngIf="loadingData" name="dots"
+                       color="primary"></ion-spinner>
+        </ion-button>
       </div>
     </form>
   </div>

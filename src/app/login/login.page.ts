@@ -1,19 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {IonButton, IonContent, IonImg, IonInput} from '@ionic/angular/standalone';
+import {IonButton, IonContent, IonIcon, IonImg, IonInput, IonItem, IonRow, IonSpinner} from '@ionic/angular/standalone';
 import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
 import {AuthResponse} from "../models/auth-response";
 import {ToastController} from "@ionic/angular";
 import {MessageService} from "../services/message.service";
+import {addIcons} from "ionicons";
+import {logInOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonInput, IonButton, ReactiveFormsModule, IonImg]
+  imports: [IonContent, CommonModule, FormsModule, IonInput, IonButton, ReactiveFormsModule, IonImg, IonItem, IonSpinner, IonRow, IonIcon]
 })
 export class LoginPage implements OnInit {
 
@@ -25,6 +27,7 @@ export class LoginPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
               private router: Router, private messageService: MessageService) {
+    addIcons({logInOutline})
   }
 
   ngOnInit(): void {
