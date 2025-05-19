@@ -1,13 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding ion-justify-content-center">
+    <ion-img class="ion-padding" src="assets/images/logo_transparent.png"></ion-img>
+    <form [formGroup]="form" (submit)="submit()">
+      <div>
+        <ion-input
+          type="text"
+          fill="solid"
+          label="Username"
+          labelPlacement="floating"
+          helperText="Enter your username"
+          formControlName="username"
+        ></ion-input>
+
+        <ion-input
+          type="password"
+          fill="solid"
+          label="Password"
+          labelPlacement="floating"
+          helperText="Enter your password"
+          formControlName="password"
+        ></ion-input>
+
+        <ion-button class="ion-padding-top" type="submit" [disabled]="loadingData">Login</ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>
+
+
+
