@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AuthResponse} from "../models/auth-response";
 import {DefaultPostRequest} from "../models/default-post-request";
 import {jwtDecode} from "jwt-decode";
+import {Preferences} from "@capacitor/preferences";
 
 @Injectable({
   providedIn: "root",
@@ -13,17 +14,12 @@ export class AuthenticationService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) {}
+  ) {
+  }
 
   login = (request: DefaultPostRequest) =>
     this.http.post<AuthResponse>(
       environment.apiUrl + "/authentication/login",
-      request,
-    );
-
-  register = (request: DefaultPostRequest) =>
-    this.http.post<AuthResponse>(
-      environment.apiUrl + "/authentication/register",
       request,
     );
 
@@ -33,8 +29,8 @@ export class AuthenticationService {
       request,
     );
 
-  isUserLogged(): boolean {
-    const token = this.getAuthTokenFromLocalStorage();
+  async isUserLogged(): Promise<boolean> {
+    const token = await this.getTokenFromStorage();
 
     const now = Date.now().valueOf() / 1000;
 
@@ -47,33 +43,36 @@ export class AuthenticationService {
    * @param redirectUrl preferred redirect url.
    */
   logOut(redirectUrl: string): void {
-    localStorage.removeItem("token");
+    Preferences.remove({
+      key: "token"
+    });
     this.router.navigateByUrl(redirectUrl).then();
   }
 
-  getLoggedUserPermissions(): string[] {
-    const token = this.getAuthTokenFromLocalStorage();
+  async getLoggedUserPermissions(): Promise<string[]> {
+    const token = await this.getTokenFromStorage();
     return token.permissions;
   }
 
-  getLoggedUserRoles() {
-    const token = this.getAuthTokenFromLocalStorage();
+  async getLoggedUserRoles() {
+    const token = await this.getTokenFromStorage();
     return token.role as string[];
   }
 
-  getLoggedUserUsername(): string {
-    const token = this.getAuthTokenFromLocalStorage();
+  async getLoggedUserUsername(): Promise<string> {
+    const token = await this.getTokenFromStorage();
     return token.name;
   }
 
-  private getAuthTokenFromLocalStorage(): AuthResponse {
-    const tokenStorageValue = localStorage.getItem("token");
+  async getTokenFromStorage(): Promise<AuthResponse> {
+    const tokenStorageValue = await Preferences.get({key: 'token'});
 
-    if (!tokenStorageValue) {
+    if (!tokenStorageValue || tokenStorageValue.value == null) {
       this.router.navigateByUrl("login").then();
       return new AuthResponse();
     } else {
-      return jwtDecode(tokenStorageValue) as AuthResponse;
+      const token = tokenStorageValue.value as string;
+      return jwtDecode(token) as AuthResponse;
     }
   }
 
@@ -83,8 +82,19 @@ export class AuthenticationService {
    * @param permission - permission name.
    * @see {@link /src/app/constants/permissions.ts} for a list of permission constants.
    */
-  checkPermission(permission: string) {
-    const userPermissions = this.getLoggedUserPermissions();
+  async checkPermission(permission: string) {
+    const userPermissions = await this.getLoggedUserPermissions();
     return userPermissions.includes(permission);
+  }
+
+  /**
+   * Saves token to secure storage.
+   * @param token - JWT value that needs to be stored
+   */
+  saveToken(token: string) {
+    Preferences.set({
+      key: 'token',
+      value: token
+    });
   }
 }

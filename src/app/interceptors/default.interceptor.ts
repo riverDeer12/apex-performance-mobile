@@ -1,54 +1,61 @@
-import {HttpInterceptorFn} from '@angular/common/http';
+import {
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpHandlerFn,
+  HttpEvent
+} from '@angular/common/http';
+import {inject} from '@angular/core';
 import {Router} from '@angular/router';
-import {tap} from 'rxjs';
+import {from, Observable} from 'rxjs';
+import {switchMap, tap} from 'rxjs/operators';
 import {AuthenticationService} from "../services/authentication.service";
-import {inject} from "@angular/core";
 
-
-export const DefaultInterceptor: HttpInterceptorFn = (request, next) => {
+export const DefaultInterceptor: HttpInterceptorFn = (
+  request: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
   const authService = inject(AuthenticationService);
   const router = inject(Router);
 
-  if (authService.isUserLogged()) {
-    const clonedRequest = request.clone({
-      headers: request.headers.set(
-        'Authorization',
-        'Bearer ' + localStorage.getItem('token')
-      ),
-    });
+  return from(authService.isUserLogged()).pipe(
+    switchMap((isLogged) => {
+      if (!isLogged) {
+        return next(request).pipe(errorHandler(authService, router));
+      }
 
-    return next(clonedRequest).pipe(
-      tap({
-        next: () => {},
-        error: (error) => {
-          if (error.status === 401) {
-            localStorage.removeItem('token');
-            router.navigateByUrl('login');
-          } else if (error.status === 403) {
-            router.navigateByUrl('forbidden');
-          } else if (error.status === 500) {
-            router.navigateByUrl('error');
+      return from(authService.getTokenFromStorage()).pipe(
+        switchMap((token) => {
+          let modifiedRequest = request;
+
+          if (token?.token) {
+            modifiedRequest = request.clone({
+              headers: request.headers.set(
+                'Authorization',
+                `Bearer ${token.token}`
+              ),
+            });
           }
-        },
-        complete: () => {},
-      })
-    );
-  } else {
-    return next(request).pipe(
-      tap({
-        next: () => {},
-        error: (error) => {
-          if (error.status === 401) {
-            localStorage.removeItem('token');
-            router.navigateByUrl('login');
-          } else if (error.status === 403) {
-            router.navigateByUrl('forbidden');
-          } else if (error.status === 500) {
-            router.navigateByUrl('error');
-          }
-        },
-        complete: () => {}
-      })
-    );
-  }
+
+          return next(modifiedRequest).pipe(errorHandler(authService, router));
+        })
+      );
+    })
+  );
 };
+
+function errorHandler(
+  authService: AuthenticationService,
+  router: Router
+) {
+  return tap<HttpEvent<unknown>>({
+    error: (error: any) => {
+      if (error.status === 401) {
+        authService.logOut('login');
+      } else if (error.status === 403) {
+        router.navigateByUrl('forbidden');
+      } else if (error.status === 500) {
+        router.navigateByUrl('error');
+      }
+    }
+  });
+}

@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {IonButton, IonContent, IonIcon, IonImg, IonInput, IonItem, IonRow, IonSpinner} from '@ionic/angular/standalone';
+import {IonButton, IonContent, IonIcon, IonImg, IonInput, IonSpinner} from '@ionic/angular/standalone';
 import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
 import {AuthResponse} from "../models/auth-response";
-import {ToastController} from "@ionic/angular";
 import {MessageService} from "../services/message.service";
 import {addIcons} from "ionicons";
 import {logInOutline} from "ionicons/icons";
@@ -15,7 +14,7 @@ import {logInOutline} from "ionicons/icons";
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonInput, IonButton, ReactiveFormsModule, IonImg, IonItem, IonSpinner, IonRow, IonIcon]
+  imports: [IonContent, CommonModule, FormsModule, IonInput, IonButton, ReactiveFormsModule, IonImg, IonSpinner, IonIcon]
 })
 export class LoginPage implements OnInit {
 
@@ -28,14 +27,13 @@ export class LoginPage implements OnInit {
   constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
               private router: Router, private messageService: MessageService) {
     addIcons({logInOutline})
+    this.initForm();
   }
 
-  ngOnInit(): void {
-    if (this.authenticationService.isUserLogged()) {
+  async ngOnInit(): Promise<void> {
+    if (await this.authenticationService.isUserLogged()) {
       this.router.navigateByUrl("/home").then();
       return;
-    } else {
-      this.initForm();
     }
   }
 
@@ -69,7 +67,7 @@ export class LoginPage implements OnInit {
     this.authenticationService.login(this.form.value).subscribe((response: AuthResponse) => {
       this.authResponse = Object.assign(response as AuthResponse);
 
-      localStorage.setItem('token', this.authResponse.token)
+      this.authenticationService.saveToken(this.authResponse.token);
 
       this.messageService.showSuccessMessage('Login Is Successful.');
 
