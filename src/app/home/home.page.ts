@@ -1,44 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {
-  IonContent,
   IonTab,
   IonTabButton,
   IonIcon,
-  IonTabBar, IonTabs, IonItem, IonList, IonLabel
+  IonTabBar, IonTabs
 } from '@ionic/angular/standalone';
-import {AppointmentService} from "../services/appointment.service";
-import {AppointmentsByDay} from "../models/appointments-by-day";
 import {addIcons} from "ionicons";
 import {calendarNumberOutline, personOutline, scaleOutline, walletOutline} from "ionicons/icons";
+import {ProfilePage} from "../profile/profile.page";
+import {MeasurementsPage} from "../measurements/measurements.page";
+import {AppointmentsPage} from "../appointments/appointments.page";
+import {CreditsPage} from "../credits/credits.page";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonContent, IonTab, IonTabButton, IonIcon,
-    IonTabBar, IonTabs, IonItem, IonList, IonLabel],
+  standalone: true,
+  imports: [IonTab, IonTabButton, IonIcon,
+    IonTabBar, IonTabs, ProfilePage, MeasurementsPage, AppointmentsPage, CreditsPage],
 })
-export class HomePage implements OnInit {
-  appointmentsByDay!: AppointmentsByDay[];
-
-  constructor(private appointmentService: AppointmentService) {
+export class HomePage {
+  constructor() {
     addIcons({calendarNumberOutline, scaleOutline, personOutline, walletOutline});
-  }
-
-  ngOnInit() {
-    // this.loadAppointments();
-  }
-
-  private loadAppointments(): void {
-    this.appointmentService.getAppointmentsByClient().subscribe({
-      next: (data: AppointmentsByDay[]) => {
-        this.appointmentsByDay = data.map((x: AppointmentsByDay) =>
-          Object.assign(new AppointmentsByDay(), x),
-        );
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
   }
 }

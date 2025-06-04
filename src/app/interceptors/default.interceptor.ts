@@ -19,6 +19,7 @@ export const DefaultInterceptor: HttpInterceptorFn = (
 
   return from(authService.isUserLogged()).pipe(
     switchMap((isLogged) => {
+
       if (!isLogged) {
         return next(request).pipe(errorHandler(authService, router));
       }
@@ -27,11 +28,11 @@ export const DefaultInterceptor: HttpInterceptorFn = (
         switchMap((token) => {
           let modifiedRequest = request;
 
-          if (token?.token) {
+          if (token) {
             modifiedRequest = request.clone({
               headers: request.headers.set(
                 'Authorization',
-                `Bearer ${token.token}`
+                `Bearer ${token}`
               ),
             });
           }

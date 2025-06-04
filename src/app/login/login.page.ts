@@ -65,11 +65,12 @@ export class LoginPage implements OnInit {
 
   private login() {
     this.authenticationService.login(this.form.value).subscribe((response: AuthResponse) => {
+
       this.authResponse = Object.assign(response as AuthResponse);
 
       this.authenticationService.saveToken(this.authResponse.token);
 
-      this.messageService.showSuccessMessage('Login Is Successful.');
+      this.messageService.showSuccessMessage('Login Is Successful.').then();
 
       this.router.navigateByUrl('/home').then();
 

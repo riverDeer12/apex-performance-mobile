@@ -1,0 +1,13 @@
+<ion-content [fullscreen]="true">
+  <h4>My Appointments</h4>
+  <div class="my-10" *ngFor="let appointment of appointments">
+    <p class="flex items-center">
+      {{ appointment.startTime | date: 'dd.MM.yyyy HH:mm' }}
+      <ion-button>Update Appointment</ion-button>
+    </p>
+    <p class="flex items-center space-x-3">
+      <img width="30" [src]="'assets/icons/' + appointment.appointmentType.description + '.png'" alt="">
+      <span class="mx-3">{{ appointment.appointmentType.name }}</span>
+    </p>
+  </div>
+</ion-content>

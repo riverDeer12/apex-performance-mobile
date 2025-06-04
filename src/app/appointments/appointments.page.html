@@ -1,0 +1,34 @@
+<ion-content [fullscreen]="true">
+
+  <div *ngIf="!isAdmin">
+    <app-client-appointments></app-client-appointments>
+  </div>
+
+  <div *ngIf="isAdmin">
+    <ion-list [inset]="true" *ngFor="let day of appointmentsByDay">
+      <h4>{{ day.day | date: 'dd.MM.yyyy.'}}</h4>
+      <ion-item-sliding *ngFor="let appointment of day.appointments">
+        <ion-item [button]="true">
+          <ion-avatar aria-hidden="true" slot="start">
+            <img [src]="'assets/icon/' + appointment.appointmentType.description + '.png'" alt="">
+          </ion-avatar>
+          <ion-label>{{ appointment.startTime | date: 'HH:mm'}}</ion-label>
+          <ion-label>
+            <span *ngFor="let client of appointment.clients">
+             {{client.firstname}} {{client.lastname}}
+            </span>
+          </ion-label>
+        </ion-item>
+        <ion-item-options slot="end">
+          <ion-item-option color="warning">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" expandable="true">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+</ion-content>

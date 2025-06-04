@@ -6,6 +6,7 @@ import {AuthResponse} from "../models/auth-response";
 import {DefaultPostRequest} from "../models/default-post-request";
 import {jwtDecode} from "jwt-decode";
 import {Preferences} from "@capacitor/preferences";
+import {Roles} from "../constants/roles";
 
 @Injectable({
   providedIn: "root",
@@ -32,9 +33,15 @@ export class AuthenticationService {
   async isUserLogged(): Promise<boolean> {
     const token = await this.getTokenFromStorage();
 
+    if (!token) {
+      return false;
+    }
+
     const now = Date.now().valueOf() / 1000;
 
-    return token.exp >= now;
+    const decodedToken = jwtDecode(token) as AuthResponse;
+
+    return decodedToken.exp >= now;
   }
 
   /**
@@ -51,28 +58,36 @@ export class AuthenticationService {
 
   async getLoggedUserPermissions(): Promise<string[]> {
     const token = await this.getTokenFromStorage();
-    return token.permissions;
+
+    const decodedToken = jwtDecode(token) as AuthResponse;
+
+    return decodedToken.permissions;
   }
 
   async getLoggedUserRoles() {
     const token = await this.getTokenFromStorage();
-    return token.role as string[];
+
+    const decodedToken = jwtDecode(token) as AuthResponse;
+
+    return decodedToken.role as string[];
   }
 
   async getLoggedUserUsername(): Promise<string> {
     const token = await this.getTokenFromStorage();
-    return token.name;
+
+    const decodedToken = jwtDecode(token) as AuthResponse;
+
+    return decodedToken.name;
   }
 
-  async getTokenFromStorage(): Promise<AuthResponse> {
+  async getTokenFromStorage(): Promise<string> {
     const tokenStorageValue = await Preferences.get({key: 'token'});
 
     if (!tokenStorageValue || tokenStorageValue.value == null) {
       this.router.navigateByUrl("login").then();
-      return new AuthResponse();
+      return '';
     } else {
-      const token = tokenStorageValue.value as string;
-      return jwtDecode(token) as AuthResponse;
+      return tokenStorageValue.value as string;
     }
   }
 
@@ -96,5 +111,13 @@ export class AuthenticationService {
       key: 'token',
       value: token
     });
+  }
+
+  async validateAdminUser(): Promise<boolean> {
+    const roles = await this.getLoggedUserRoles();
+
+    return (
+      roles.includes(Roles.Administrator) || roles.includes(Roles.SuperAdmin)
+    );
   }
 }
