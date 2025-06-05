@@ -9,7 +9,7 @@
       <h4>{{ day.day | date: 'dd.MM.yyyy.'}}</h4>
       <ion-item-sliding *ngFor="let appointment of day.appointments">
         <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
+          <ion-avatar slot="start">
             <img [src]="'assets/icon/' + appointment.appointmentType.description + '.png'" alt="">
           </ion-avatar>
           <ion-label>{{ appointment.startTime | date: 'HH:mm'}}</ion-label>

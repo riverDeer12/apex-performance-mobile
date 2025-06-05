@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {IonButton, IonContent, IonHeader, IonTitle, IonToolbar} from '@ionic/angular/standalone';
+import {IonButton, IonContent} from '@ionic/angular/standalone';
 import {Appointment} from "../../models/appointment";
 import {AppointmentService} from "../../services/appointment.service";
 

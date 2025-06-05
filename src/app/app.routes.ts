@@ -31,7 +31,7 @@ export const routes: Routes = [
     loadComponent: () => import('./profile/profile.page').then(m => m.ProfilePage)
   },
   {
-    path: 'measurements',
+    path: 'body-measurements',
     loadComponent: () => import('./measurements/measurements.page').then( m => m.MeasurementsPage)
   },
   {

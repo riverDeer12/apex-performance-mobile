@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-measurements',
+  selector: 'app-body-measurements',
   templateUrl: './measurements.page.html',
   styleUrls: ['./measurements.page.scss'],
   standalone: true,

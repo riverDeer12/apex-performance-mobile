@@ -1,13 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-label> Firstname</ion-label>
+      {{ client?.firstname }}
+    </ion-item>
+    <ion-item>
+      <ion-label>Lastname</ion-label>
+      {{ client?.lastname }}
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="logOut()">
+        Logout
+        <ion-icon slot="end" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
