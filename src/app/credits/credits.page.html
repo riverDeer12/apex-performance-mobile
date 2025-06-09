@@ -1,13 +1,8 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>credits</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">credits</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let clientCredit of clientCredits" color="{{clientCredit.credits > 0 ? 'light' : 'danger'}}">
+      <ion-label>{{ clientCredit.firstname }} {{ clientCredit.lastname }}</ion-label>
+      <ion-label>{{ clientCredit.credits }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

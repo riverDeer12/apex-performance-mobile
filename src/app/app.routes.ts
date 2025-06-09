@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: 'body-measurements',
-    loadComponent: () => import('./measurements/measurements.page').then( m => m.MeasurementsPage)
+    loadComponent: () => import('./body-measurements/body-measurements-page.component').then(m => m.BodyMeasurementsPage)
   },
   {
     path: 'client-appointments',

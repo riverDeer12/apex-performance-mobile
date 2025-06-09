@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true">
+  <ion-accordion-group class="ion-padding" *ngFor="let day of bodyMeasurementsByDay">
+
+    <h4>{{ day.day | date: 'dd.MM.yyyy.'}}</h4>
+
+    <ion-accordion *ngFor="let bodyMeasurement of day.bodyMeasurements" value="{{bodyMeasurement.id}}">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ bodyMeasurement.client.firstname }} {{ bodyMeasurement.client.lastname }}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <div><h4>Height and Width</h4></div>
+        <div class="ion-padding" slot="content">Height: {{ bodyMeasurement.height | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Weight: {{ bodyMeasurement.weight | number:'1.2-2' }} kg</div>
+      </div>
+
+      <div class="ion-padding" slot="content">
+        <div><h4>Body Measurements</h4></div>
+        <div class="ion-padding" slot="content">Shoulders: {{ bodyMeasurement.shoulders | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Chest: {{ bodyMeasurement.chest | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Upper Arm: {{ bodyMeasurement.upperArm | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Waist: {{ bodyMeasurement.waist | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Thigh: {{ bodyMeasurement.thigh | number:'1.2-2' }} cm</div>
+        <div class="ion-padding" slot="content">Calves: {{ bodyMeasurement.calves | number:'1.2-2' }} cm</div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

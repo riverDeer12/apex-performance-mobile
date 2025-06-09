@@ -8,9 +8,9 @@ import {
 import {addIcons} from "ionicons";
 import {calendarNumberOutline, personOutline, scaleOutline, walletOutline} from "ionicons/icons";
 import {ProfilePage} from "../profile/profile.page";
-import {MeasurementsPage} from "../measurements/measurements.page";
 import {AppointmentsPage} from "../appointments/appointments.page";
 import {CreditsPage} from "../credits/credits.page";
+import {BodyMeasurementsPage} from "../body-measurements/body-measurements-page.component";
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ import {CreditsPage} from "../credits/credits.page";
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [IonTab, IonTabButton, IonIcon,
-    IonTabBar, IonTabs, ProfilePage, MeasurementsPage, AppointmentsPage, CreditsPage],
+    IonTabBar, IonTabs, ProfilePage, AppointmentsPage, CreditsPage, BodyMeasurementsPage],
 })
 export class HomePage {
   constructor() {
