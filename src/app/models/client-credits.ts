@@ -2,7 +2,7 @@ import {User} from "./user";
 
 export class ClientCredits {
   id!: string;
-  firstname!: string;
-  lastname!: string;
+  firstName!: string;
+  lastName!: string;
   credits!: number;
 }

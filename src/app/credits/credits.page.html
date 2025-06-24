@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item *ngFor="let clientCredit of clientCredits" color="{{clientCredit.credits > 0 ? 'light' : 'danger'}}">
-      <ion-label>{{ clientCredit.firstname }} {{ clientCredit.lastname }}</ion-label>
+      <ion-label>{{ clientCredit.firstName }} {{ clientCredit.lastName }}</ion-label>
       <ion-label>{{ clientCredit.credits }}</ion-label>
     </ion-item>
   </ion-list>

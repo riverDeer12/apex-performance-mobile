@@ -5,7 +5,7 @@
 
     <ion-accordion *ngFor="let bodyMeasurement of day.bodyMeasurements" value="{{bodyMeasurement.id}}">
       <ion-item slot="header" color="light">
-        <ion-label>{{ bodyMeasurement.client.firstname }} {{ bodyMeasurement.client.lastname }}</ion-label>
+        <ion-label>{{ bodyMeasurement.client.firstName }} {{ bodyMeasurement.client.lastName }}</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
         <div><h4>Height and Width</h4></div>

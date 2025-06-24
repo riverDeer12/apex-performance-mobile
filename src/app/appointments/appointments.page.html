@@ -15,7 +15,7 @@
           <ion-label>{{ appointment.startTime | date: 'HH:mm'}}</ion-label>
           <ion-label>
             <span *ngFor="let client of appointment.clients">
-             {{client.firstname}} {{client.lastname}}
+             {{client.firstName}} {{client.lastName}}
             </span>
           </ion-label>
         </ion-item>

@@ -55,7 +55,7 @@ export class ProfilePage implements OnInit {
 
   private setAdminData() {
     this.client = new Client();
-    this.client.firstname = "Admin";
-    this.client.lastname = "Admin";
+    this.client.firstName = "Admin";
+    this.client.lastName = "Admin";
   }
 }

@@ -2,8 +2,8 @@ import {User} from "./user";
 
 export class Client {
   id!: string;
-  firstname!: string;
-  lastname!: string;
+  firstName!: string;
+  lastName!: string;
   email!: string;
   phone!: string;
   credits!: number;
