@@ -2,58 +2,53 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  IonAvatar,
-  IonContent,
+  IonAvatar, IonButton,
+  IonContent, IonFab, IonFabButton,
   IonIcon,
   IonItem, IonItemOption, IonItemOptions,
   IonItemSliding,
   IonLabel,
   IonList
 } from '@ionic/angular/standalone';
-import {AppointmentsByDay} from "../models/appointments-by-day";
 import {AppointmentService} from "../services/appointment.service";
-import {ClientAppointmentsPage} from "./client-appointments/client-appointments.page";
-import {AuthenticationService} from "../services/authentication.service";
 import {addIcons} from "ionicons";
-import {createOutline, trash} from "ionicons/icons";
+import {add, closeOutline} from "ionicons/icons";
+import {Appointment} from "../models/appointment";
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.page.html',
   styleUrls: ['./appointments.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, ClientAppointmentsPage, IonList, IonItem,
-    IonLabel, IonIcon, IonItemSliding, IonAvatar, IonItemOptions, IonItemOption]
+  imports: [IonContent, CommonModule, FormsModule, IonList, IonItem,
+    IonLabel, IonIcon, IonItemSliding, IonAvatar, IonItemOptions, IonItemOption, IonButton, IonFab, IonFabButton]
 })
 export class AppointmentsPage implements OnInit {
 
-  appointmentsByDay!: AppointmentsByDay[];
+  appointments!: Appointment[];
 
-  isAdmin!: Promise<boolean>;
-
-  constructor(private appointmentService: AppointmentService,
-              private authenticationService: AuthenticationService) {
-    addIcons({createOutline, trash});
+  constructor(private appointmentService: AppointmentService) {
+    addIcons({add, closeOutline});
   }
 
-  async ngOnInit() {
-
-    this.isAdmin = this.authenticationService.validateAdminUser();
-
-    await this.isAdmin ?
-      this.loadAppointments() : null;
+  ngOnInit() {
+    this.loadAppointments();
   }
 
   private loadAppointments(): void {
-    this.appointmentService.getAllAppointments().subscribe({
-      next: (data: AppointmentsByDay[]) => {
-        this.appointmentsByDay = data.map((x: AppointmentsByDay) =>
-          Object.assign(new AppointmentsByDay(), x),
+    this.appointmentService.getAppointmentsByClient().subscribe({
+      next: (data: Appointment[]) => {
+        this.appointments = data.map((x: Appointment) =>
+          Object.assign(new Appointment(), x),
         );
       },
       error: (err: any) => {
         console.error(err);
       },
     });
+  }
+
+  public sendAppointment(): void {
+
   }
 }

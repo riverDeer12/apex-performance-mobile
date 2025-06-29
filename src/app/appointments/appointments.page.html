@@ -1,34 +1,29 @@
-<ion-content [fullscreen]="true">
-
-  <div *ngIf="!isAdmin">
-    <app-client-appointments></app-client-appointments>
-  </div>
-
-  <div *ngIf="isAdmin">
-    <ion-list [inset]="true" *ngFor="let day of appointmentsByDay">
-      <h4>{{ day.day | date: 'dd.MM.yyyy.'}}</h4>
-      <ion-item-sliding *ngFor="let appointment of day.appointments">
-        <ion-item [button]="true">
-          <ion-avatar slot="start">
-            <img [src]="'assets/icon/' + appointment.appointmentType.description + '.png'" alt="">
-          </ion-avatar>
-          <ion-label>{{ appointment.startTime | date: 'HH:mm'}}</ion-label>
-          <ion-label>
+<ion-content [fullscreen]="true" class="ion-no-padding">
+  <ion-list>
+    <ion-item-sliding *ngFor="let appointment of appointments">
+      <ion-item [button]="true">
+        <ion-avatar slot="start">
+          <img [src]="'assets/icon/' + appointment.type.description + '.png'" alt="">
+        </ion-avatar>
+        <ion-label>{{ appointment.startTime | date: 'dd.MM.yyyy HH:mm' }} - {{ appointment.endTime | date: 'HH:mm' }}
+        </ion-label>
+        <ion-label>{{ appointment.status.name }}</ion-label>
+        <ion-label>
             <span *ngFor="let client of appointment.clients">
-             {{client.firstName}} {{client.lastName}}
+              <p>{{ client.firstName }} {{ client.lastName }}</p>
             </span>
-          </ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-  </div>
-
+        </ion-label>
+      </ion-item>
+      <ion-item-options slot="end">
+        <ion-item-option color="danger" expandable="true">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add" (click)="sendAppointment()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

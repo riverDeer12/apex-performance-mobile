@@ -14,4 +14,7 @@ export class BodyMeasurementService {
 
   getAllBodyMeasurements = () =>
     this.http.get<BodyMeasurementsByDay[]>(environment.apiUrl + "/body-measurements");
+
+  getClientBodyMeasurements = () =>
+    this.http.get<BodyMeasurement[]>(environment.apiUrl + "/body-measurements/client");
 }

@@ -1,9 +1,5 @@
 <ion-content [fullscreen]="true">
-  <ion-accordion-group class="ion-padding" *ngFor="let day of bodyMeasurementsByDay">
-
-    <h4>{{ day.day | date: 'dd.MM.yyyy.'}}</h4>
-
-    <ion-accordion *ngFor="let bodyMeasurement of day.bodyMeasurements" value="{{bodyMeasurement.id}}">
+    <ion-accordion *ngFor="let bodyMeasurement of bodyMeasurements" value="{{bodyMeasurement.id}}">
       <ion-item slot="header" color="light">
         <ion-label>{{ bodyMeasurement.client.firstName }} {{ bodyMeasurement.client.lastName }}</ion-label>
       </ion-item>
@@ -23,5 +19,4 @@
         <div class="ion-padding" slot="content">Calves: {{ bodyMeasurement.calves | number:'1.2-2' }} cm</div>
       </div>
     </ion-accordion>
-  </ion-accordion-group>
 </ion-content>

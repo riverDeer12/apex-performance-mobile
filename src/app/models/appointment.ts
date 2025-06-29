@@ -1,4 +1,4 @@
-import {AppointmentType} from "./appointment-type";
+import { CatalogData } from "./catalog-data";
 import {Client} from "./client";
 
 export class Appointment {
@@ -7,6 +7,7 @@ export class Appointment {
   endTime!: Date;
   createdAt!: Date;
   updatedAt!: Date;
-  appointmentType!: AppointmentType;
+  type!: CatalogData;
+  status!: CatalogData;
   clients!: Client[];
 }

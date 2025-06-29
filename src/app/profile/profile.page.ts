@@ -25,18 +25,13 @@ export class ProfilePage implements OnInit {
 
   client!: Client | null;
 
-  isAdmin!: Promise<boolean>;
-
   constructor(private authenticationService: AuthenticationService,
               private clientService: ClientService) {
     addIcons({logOutOutline})
   }
 
-  async ngOnInit() {
-
-    this.isAdmin = this.authenticationService.validateAdminUser();
-
-    await this.isAdmin ? this.setAdminData() : this.getCurrentClient();
+  ngOnInit() {
+    this.getCurrentClient();
   }
 
   logOut = () =>
@@ -51,11 +46,5 @@ export class ProfilePage implements OnInit {
         console.error(err);
       },
     });
-  }
-
-  private setAdminData() {
-    this.client = new Client();
-    this.client.firstName = "Admin";
-    this.client.lastName = "Admin";
   }
 }

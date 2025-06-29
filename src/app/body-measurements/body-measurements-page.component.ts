@@ -8,9 +8,8 @@ import {
   IonItem,
   IonLabel
 } from '@ionic/angular/standalone';
-import {AuthenticationService} from "../services/authentication.service";
 import {BodyMeasurementService} from "../services/body-measurement.service";
-import {BodyMeasurementsByDay} from "../models/body-measurements-by-day";
+import {BodyMeasurement} from "../models/body-measurement";
 
 @Component({
   selector: 'app-body-measurements',
@@ -21,27 +20,20 @@ import {BodyMeasurementsByDay} from "../models/body-measurements-by-day";
 })
 export class BodyMeasurementsPage implements OnInit {
 
-  bodyMeasurementsByDay!: BodyMeasurementsByDay[];
+  bodyMeasurements!: BodyMeasurement[];
 
-  isAdmin!: Promise<boolean>;
-
-  constructor(private bodyMeasurementService: BodyMeasurementService,
-              private authenticationService: AuthenticationService) {
+  constructor(private bodyMeasurementService: BodyMeasurementService) {
   }
 
-  async ngOnInit() {
-
-    this.isAdmin = this.authenticationService.validateAdminUser();
-
-    await this.isAdmin ?
-      this.loadBodyMeasurements() : null;
+  ngOnInit() {
+      this.loadBodyMeasurements();
   }
 
   private loadBodyMeasurements(): void {
-    this.bodyMeasurementService.getAllBodyMeasurements().subscribe({
-      next: (data: BodyMeasurementsByDay[]) => {
-        this.bodyMeasurementsByDay = data.map((x: BodyMeasurementsByDay) =>
-          Object.assign(new BodyMeasurementsByDay(), x),
+    this.bodyMeasurementService.getClientBodyMeasurements().subscribe({
+      next: (data: BodyMeasurement[]) => {
+        this.bodyMeasurements = data.map((x: BodyMeasurement) =>
+          Object.assign(new BodyMeasurement(), x),
         );
       },
       error: (err: any) => {
