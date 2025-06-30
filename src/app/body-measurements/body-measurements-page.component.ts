@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  IonAccordion,
-  IonAccordionGroup,
+  IonAccordion, IonAccordionGroup,
   IonContent,
   IonItem,
   IonLabel
@@ -16,7 +15,7 @@ import {BodyMeasurement} from "../models/body-measurement";
   templateUrl: './body-measurements-page.component.html',
   styleUrls: ['./body-measurements-page.component.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonAccordionGroup, IonAccordion, IonLabel, IonItem]
+  imports: [IonContent, CommonModule, FormsModule, IonAccordion, IonLabel, IonItem, IonAccordionGroup]
 })
 export class BodyMeasurementsPage implements OnInit {
 

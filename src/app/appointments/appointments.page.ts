@@ -21,7 +21,7 @@ import {Appointment} from "../models/appointment";
   styleUrls: ['./appointments.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, IonList, IonItem,
-    IonLabel, IonIcon, IonItemSliding, IonAvatar, IonItemOptions, IonItemOption, IonButton, IonFab, IonFabButton]
+    IonLabel, IonIcon, IonItemSliding, IonAvatar, IonItemOptions, IonItemOption, IonFab, IonFabButton]
 })
 export class AppointmentsPage implements OnInit {
 

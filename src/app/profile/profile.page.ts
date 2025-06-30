@@ -9,7 +9,7 @@ import {
   IonList,
 } from '@ionic/angular/standalone';
 import {addIcons} from "ionicons";
-import {logOutOutline} from "ionicons/icons";
+import {createOutline, logOutOutline} from "ionicons/icons";
 import {AuthenticationService} from "../services/authentication.service";
 import {Client} from "../models/client";
 import {ClientService} from "../services/client.service";
@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
               private clientService: ClientService) {
-    addIcons({logOutOutline})
+    addIcons({logOutOutline, createOutline})
   }
 
   ngOnInit() {
@@ -36,6 +36,9 @@ export class ProfilePage implements OnInit {
 
   logOut = () =>
     this.authenticationService.logOut("/login");
+
+  requestPasswordChange = () =>
+    this.authenticationService.requestPasswordChange("");
 
   private getCurrentClient(): void {
     this.clientService.getCurrentClient().subscribe({

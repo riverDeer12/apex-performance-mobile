@@ -24,7 +24,7 @@ export class AuthenticationService {
       request,
     );
 
-  resetPassword = (request: DefaultPostRequest) =>
+  requestPasswordChange = (request: DefaultPostRequest) =>
     this.http.post<AuthResponse>(
       environment.apiUrl + "/authentication/reset-password",
       request,
