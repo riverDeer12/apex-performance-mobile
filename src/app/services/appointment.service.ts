@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Appointment} from "../models/appointment";
 import {environment} from "../../environments/environment";
 import {AppointmentsByDay} from "../models/appointments-by-day";
+import {ClientAppointments} from "../models/client-appointments";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AppointmentService {
   }
 
   getAppointmentsByClient = () =>
-    this.http.get<Appointment[]>(environment.apiUrl + "/appointments/client");
+    this.http.get<ClientAppointments>(environment.apiUrl + "/appointments/client");
 
   getAllAppointments = () =>
     this.http.get<AppointmentsByDay[]>(environment.apiUrl + "/appointments");

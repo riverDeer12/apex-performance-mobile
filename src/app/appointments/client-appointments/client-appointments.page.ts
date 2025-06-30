@@ -1,39 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {IonButton, IonContent} from '@ionic/angular/standalone';
+import {
+  IonAvatar,
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonItemOption,
+  IonItemOptions, IonItemSliding, IonLabel, IonList
+} from '@ionic/angular/standalone';
 import {Appointment} from "../../models/appointment";
-import {AppointmentService} from "../../services/appointment.service";
+import {addIcons} from "ionicons";
+import {add, closeOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-client-appointments',
   templateUrl: './client-appointments.page.html',
   styleUrls: ['./client-appointments.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonButton]
+  imports: [IonContent, CommonModule, FormsModule, IonAvatar, IonIcon, IonItem,
+    IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList]
 })
-export class ClientAppointmentsPage implements OnInit {
+export class ClientAppointmentsPage {
 
-  appointments!: Appointment[];
+  @Input() appointments!: Appointment[];
+  @Input() title!: string;
+  @Input() type!: string;
 
-  constructor(private appointmentService: AppointmentService) {
+  constructor() {
+    addIcons({add, closeOutline});
   }
-
-  ngOnInit() {
-    this.loadAppointmentsForClient();
-  }
-
-  private loadAppointmentsForClient(): void {
-    this.appointmentService.getAppointmentsByClient().subscribe({
-      next: (data: Appointment[]) => {
-        this.appointments = data.map((x: Appointment) =>
-          Object.assign(new Appointment(), x),
-        );
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
-  }
-
 }

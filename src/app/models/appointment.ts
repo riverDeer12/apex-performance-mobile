@@ -1,5 +1,6 @@
 import { CatalogData } from "./catalog-data";
 import {Client} from "./client";
+import { Coach } from "./coach";
 
 export class Appointment {
   id!: string;
@@ -10,4 +11,5 @@ export class Appointment {
   type!: CatalogData;
   status!: CatalogData;
   clients!: Client[];
+  coaches!: Coach[];
 }
