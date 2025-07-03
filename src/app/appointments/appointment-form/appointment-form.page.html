@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <form [formGroup]="form" (submit)="submit()">
+      <ion-item>
+        <ion-datetime presentation="date-time" [preferWheel]="true" formControlName="startTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-datetime presentation="date-time" [preferWheel]="true" formControlName="endTime"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Type" placeholder="Select Type" formControlName="type">
+          <ion-select-option *ngFor="let type of appointmentTypes" [value]="type.id">
+            {{ type.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Clients" placeholder="Select Clients"
+                    [multiple]="true"
+                    formControlName="clients" value="id">
+          <ion-select-option *ngFor="let client of clients" [value]="client.id">
+            <span *ngIf="client.id === currentClient?.id">Me</span>
+            <span *ngIf="client.id !== currentClient?.id">{{ client.firstName }} {{ client.lastName }}</span>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Coaches" placeholder="Select Coaches" [multiple]="true" formControlName="coaches" value="id">
+          <ion-select-option *ngFor="let coach of coaches" [value]="coach.id">
+            {{ coach.firstName }} {{ coach.lastName }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button type="submit" expand="full">
+        Create Appointment
+      </ion-button>
+    </form>
+  </ion-list>
+</ion-content>

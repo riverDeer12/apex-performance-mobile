@@ -2,21 +2,23 @@
   <ion-list [inset]="true">
     <ion-item>
       <ion-label> Firstname</ion-label>
-      {{ client?.firstName }}
+      {{ currentClient?.firstName }}
     </ion-item>
     <ion-item>
       <ion-label>Lastname</ion-label>
-      {{ client?.lastName }}
+      {{ currentClient?.lastName }}
     </ion-item>
     <ion-item>
       <ion-label>Credits</ion-label>
-      {{ client?.credits }}
+      {{ currentClient?.credits }}
     </ion-item>
     <ion-item>
       <ion-button (click)="logOut()">
         Logout
         <ion-icon slot="end" name="log-out-outline"></ion-icon>
       </ion-button>
+    </ion-item>
+    <ion-item>
       <ion-button (click)="requestPasswordChange()">
         Change Password
         <ion-icon slot="end" name="create-outline"></ion-icon>

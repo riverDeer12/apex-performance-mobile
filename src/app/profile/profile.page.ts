@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
@@ -12,7 +12,6 @@ import {addIcons} from "ionicons";
 import {createOutline, logOutOutline} from "ionicons/icons";
 import {AuthenticationService} from "../services/authentication.service";
 import {Client} from "../models/client";
-import {ClientService} from "../services/client.service";
 
 @Component({
   selector: 'app-profile',
@@ -21,17 +20,11 @@ import {ClientService} from "../services/client.service";
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, IonItem, IonList, IonButton, IonIcon, IonLabel]
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
+  @Input() currentClient!: Client | null;
 
-  client!: Client | null;
-
-  constructor(private authenticationService: AuthenticationService,
-              private clientService: ClientService) {
+  constructor(private authenticationService: AuthenticationService) {
     addIcons({logOutOutline, createOutline})
-  }
-
-  ngOnInit() {
-    this.getCurrentClient();
   }
 
   logOut = () =>
@@ -39,15 +32,4 @@ export class ProfilePage implements OnInit {
 
   requestPasswordChange = () =>
     this.authenticationService.requestPasswordChange("");
-
-  private getCurrentClient(): void {
-    this.clientService.getCurrentClient().subscribe({
-      next: (data: Client) => {
-        this.client = Object.assign(new Client(), data);
-      },
-      error: (err: any) => {
-        console.error(err);
-      },
-    });
-  }
 }

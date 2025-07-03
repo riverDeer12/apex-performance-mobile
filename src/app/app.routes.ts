@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'body-measurements',
     loadComponent: () => import('./body-measurements/body-measurements-page.component').then(m => m.BodyMeasurementsPage)
   },
+  {
+    path: 'appointment-form',
+    loadComponent: () => import('./appointments/appointment-form/appointment-form.page').then( m => m.AppointmentFormPage)
+  },
 ];

@@ -18,4 +18,7 @@ export class ClientService {
 
   getClientsCredits = () =>
     this.http.get<ClientCredits[]>(environment.apiUrl + "/clients/credits");
+
+  getClients = () =>
+    this.http.get<Client[]>(environment.apiUrl + "/clients");
 }

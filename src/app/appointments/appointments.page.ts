@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  IonContent, IonFab, IonFabButton, IonIcon,
+  ActionSheetController,
+  IonButton,
+  IonButtons,
+  IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonTitle, IonToolbar,
 } from '@ionic/angular/standalone';
 import {AppointmentService} from "../services/appointment.service";
 import {Appointment} from "../models/appointment";
@@ -10,15 +13,20 @@ import {ClientAppointments} from '../models/client-appointments';
 import {ClientAppointmentsPage} from "./client-appointments/client-appointments.page";
 import {addIcons} from "ionicons";
 import {add, closeOutline} from "ionicons/icons";
+import {AppointmentFormPage} from "./appointment-form/appointment-form.page";
+import {Client} from "../models/client";
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.page.html',
   styleUrls: ['./appointments.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonFab, IonFabButton, ClientAppointmentsPage, IonIcon]
+  imports: [IonContent, CommonModule, FormsModule, IonFab, IonFabButton, ClientAppointmentsPage,
+    IonIcon, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, AppointmentFormPage]
 })
 export class AppointmentsPage implements OnInit {
+
+  @Input() currentClient!: Client;
 
   approvedAppointments!: Appointment[];
   pendingAppointments!: Appointment[];

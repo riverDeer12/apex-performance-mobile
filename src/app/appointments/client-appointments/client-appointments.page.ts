@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
   IonAvatar,
-  IonContent,
   IonIcon,
   IonItem,
   IonItemOption,
@@ -18,7 +17,7 @@ import {add, closeOutline} from "ionicons/icons";
   templateUrl: './client-appointments.page.html',
   styleUrls: ['./client-appointments.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonAvatar, IonIcon, IonItem,
+  imports: [CommonModule, FormsModule, IonAvatar, IonIcon, IonItem,
     IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList]
 })
 export class ClientAppointmentsPage {

@@ -4,7 +4,23 @@
   <app-client-appointments [appointments]="inProgressAppointments" type="In Progress"></app-client-appointments>
   <ion-fab horizontal="end">
     <ion-fab-button>
-      <ion-icon name="add" (click)="sendAppointment()"></ion-icon>
+      <ion-icon id="open-modal" name="add" (click)="sendAppointment()"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>New Appointment</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <app-appointment-form [currentClient]="currentClient"></app-appointment-form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
