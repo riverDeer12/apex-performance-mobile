@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true" class="ion-no-padding">
   <app-client-appointments [appointments]="approvedAppointments" type="Approved"></app-client-appointments>
-  <app-client-appointments [appointments]="pendingAppointments" type="Pending"></app-client-appointments>
   <app-client-appointments [appointments]="inProgressAppointments" type="In Progress"></app-client-appointments>
+  <app-client-appointments [appointments]="pendingAppointments" type="Pending"></app-client-appointments>
   <ion-fab horizontal="end">
     <ion-fab-button>
       <ion-icon id="open-modal" name="add" (click)="sendAppointment()"></ion-icon>

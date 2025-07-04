@@ -4,6 +4,7 @@ import {Appointment} from "../models/appointment";
 import {environment} from "../../environments/environment";
 import {ClientAppointments} from "../models/client-appointments";
 import {DefaultPostRequest} from '../models/default-post-request';
+import {DefaultResponse} from '../models/default-response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +19,7 @@ export class AppointmentService {
 
   createAppointment = (request: DefaultPostRequest) =>
     this.http.post<Appointment>(environment.apiUrl + "/appointments/", request);
+
+  sendCancelationRequest = (appointmentId: string) =>
+    this.http.get<DefaultResponse>(environment.apiUrl + "/appointments/cancelation-request/" + appointmentId);
 }

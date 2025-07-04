@@ -21,4 +21,7 @@ export class ClientService {
 
   getClients = () =>
     this.http.get<Client[]>(environment.apiUrl + "/clients");
+
+  getCoachRelatedClients = () =>
+    this.http.get<Client[]>(environment.apiUrl + "/clients/coach-related");
 }

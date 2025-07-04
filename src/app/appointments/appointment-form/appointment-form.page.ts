@@ -61,7 +61,7 @@ export class AppointmentFormPage implements OnInit {
 
       this.form.markAllAsTouched();
 
-      this.messageService.showErrorMessage('Check the entered data and try again.').then();
+      this.messageService.showWarningMessage('Check the entered data and try again.').then();
 
       this.loadingData = false;
 
@@ -104,7 +104,7 @@ export class AppointmentFormPage implements OnInit {
   }
 
   private getClients() {
-    this.clientService.getClients().subscribe((response: Client[]) => {
+    this.clientService.getCoachRelatedClients().subscribe((response: Client[]) => {
       this.clients = response.map((x: Client) =>
         Object.assign(new Client(), x),
       );
