@@ -6,14 +6,15 @@ import {
   IonIcon,
   IonItem,
   IonItemOption,
-  IonItemOptions, IonItemSliding, IonLabel, IonList
+  IonItemOptions, IonItemSliding, IonLabel, IonList,
+  ModalController
 } from '@ionic/angular/standalone';
 import {Appointment} from "../../models/appointment";
 import {addIcons} from "ionicons";
 import {add, closeOutline} from "ionicons/icons";
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { MessageService } from 'src/app/services/message.service';
-
+import {ModalFormComponent} from "../../shared/modal-form/modal-form.component";
+import { Client } from 'src/app/models/client';
+import {EntityType} from "../../constants/entity-type";
 @Component({
   selector: 'app-client-appointments',
   templateUrl: './client-appointments.page.html',
@@ -25,17 +26,28 @@ import { MessageService } from 'src/app/services/message.service';
 export class ClientAppointmentsPage {
 
   @Input() appointments!: Appointment[];
+  @Input() currentClient!: Client;
   @Input() title!: string;
   @Input() type!: string;
 
-  constructor(private appointmentService: AppointmentService,
-              private messageService: MessageService) {
+  constructor(private modalController: ModalController) {
     addIcons({add, closeOutline});
   }
 
-  confirmCancelation(appointmentId: string): void {
-    this.appointmentService.sendCancelationRequest(appointmentId).subscribe((response) => {
-      this.messageService.showSuccessMessage('Cancelation request has been sent.').then();
-    })
+  async openCancelationRequestModal(appointmentId: string): Promise<void> {
+    const modal = await this.modalController.create({
+      component: ModalFormComponent,
+      componentProps: {
+        type: EntityType.AppointmentRequest,
+        currentClient: this.currentClient,
+        appointmentId: appointmentId
+      }
+    });
+    await modal.present();
+
+    const {data, role} = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+    }
   }
 }

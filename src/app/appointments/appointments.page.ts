@@ -2,10 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  ActionSheetController,
-  IonButton,
-  IonButtons,
-  IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonTitle, IonToolbar,
+  IonContent, IonFab, IonFabButton, IonIcon,
+  ModalController,
 } from '@ionic/angular/standalone';
 import {AppointmentService} from "../services/appointment.service";
 import {Appointment} from "../models/appointment";
@@ -13,8 +11,9 @@ import {ClientAppointments} from '../models/client-appointments';
 import {ClientAppointmentsPage} from "./client-appointments/client-appointments.page";
 import {addIcons} from "ionicons";
 import {add, closeOutline} from "ionicons/icons";
-import {AppointmentFormPage} from "./appointment-form/appointment-form.page";
 import {Client} from "../models/client";
+import {ModalFormComponent} from "../shared/modal-form/modal-form.component";
+import {EntityType} from "../constants/entity-type";
 
 @Component({
   selector: 'app-appointments',
@@ -22,7 +21,8 @@ import {Client} from "../models/client";
   styleUrls: ['./appointments.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, IonFab, IonFabButton, ClientAppointmentsPage,
-    IonIcon, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, AppointmentFormPage]
+    IonIcon],
+  providers: [ModalController]
 })
 export class AppointmentsPage implements OnInit {
 
@@ -32,7 +32,8 @@ export class AppointmentsPage implements OnInit {
   pendingAppointments!: Appointment[];
   inProgressAppointments!: Appointment[];
 
-  constructor(private appointmentService: AppointmentService) {
+  constructor(private appointmentService: AppointmentService,
+              private modalController: ModalController) {
     addIcons({add, closeOutline});
   }
 
@@ -59,7 +60,20 @@ export class AppointmentsPage implements OnInit {
     });
   }
 
-  public sendAppointment(): void {
+  async openNewAppointmentModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: ModalFormComponent,
+      componentProps: {
+        type: EntityType.Appointment,
+        currentClient: this.currentClient
+      }
+    });
+    await modal.present();
 
+    const {data, role} = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.loadAppointments();
+    }
   }
 }

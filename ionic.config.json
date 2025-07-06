@@ -1,5 +1,7 @@
 {
   "name": "apex-performance-mobile",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular-standalone"
 }

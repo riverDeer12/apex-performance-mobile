@@ -1,0 +1,13 @@
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <form [formGroup]="form" (submit)="submit()">
+      <ion-item>
+        <ion-textarea label="Comment" placeholder="Describe reason for appointment cancelation..."
+                      formControlName="comment"></ion-textarea>
+      </ion-item>
+      <ion-button class="ion-padding-vertical" type="submit" expand="full">
+        Send Request
+      </ion-button>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,26 +1,46 @@
 <ion-content [fullscreen]="true" class="ion-no-padding">
-  <app-client-appointments [appointments]="approvedAppointments" type="Approved"></app-client-appointments>
-  <app-client-appointments [appointments]="inProgressAppointments" type="In Progress"></app-client-appointments>
-  <app-client-appointments [appointments]="pendingAppointments" type="Pending"></app-client-appointments>
+  <app-client-appointments [currentClient]="currentClient" [appointments]="approvedAppointments"
+                           type="Approved"></app-client-appointments>
+  <app-client-appointments [currentClient]="currentClient" [appointments]="inProgressAppointments"
+                           type="In Progress"></app-client-appointments>
+  <app-client-appointments [currentClient]="currentClient" [appointments]="pendingAppointments"
+                           type="Pending"></app-client-appointments>
   <ion-fab horizontal="end">
     <ion-fab-button>
-      <ion-icon id="open-modal" name="add" (click)="sendAppointment()"></ion-icon>
+      <ion-icon id="open-modal" name="add" (click)="openNewAppointmentModal()"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-modal #modal trigger="open-modal">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>New Appointment</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="modal.dismiss()">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <app-appointment-form [currentClient]="currentClient"></app-appointment-form>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+  <!--  <ion-modal #createAppointmentModal trigger="open-modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>New Appointment</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="createAppointmentModal.dismiss()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <app-appointment-form [currentClient]="currentClient"></app-appointment-form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal #cancelationCommentModal trigger="open-modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Appointment Cancelation Request</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="cancelationCommentModal.dismiss()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <app-appointment-request-cancelation-form
+            [currentClient]="currentClient"></app-appointment-request-cancelation-form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>-->
 </ion-content>
