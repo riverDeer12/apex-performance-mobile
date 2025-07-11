@@ -29,15 +29,17 @@ export class BodyMeasurementsPage implements OnInit {
     this.loadBodyMeasurements();
   }
 
-  loadBodyMeasurements(): void {
+  loadBodyMeasurements(event?: any): void {
     this.bodyMeasurementService.getClientBodyMeasurements().subscribe({
       next: (data: BodyMeasurement[]) => {
         this.bodyMeasurements = data.map((x: BodyMeasurement) =>
           Object.assign(new BodyMeasurement(), x),
         );
+        event.target.complete();
       },
       error: (err: any) => {
         console.error(err);
+        event.target.complete();
       },
     });
   }

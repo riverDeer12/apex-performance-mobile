@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {
   IonContent, IonFab, IonFabButton, IonIcon, IonRefresher, IonRefresherContent,
   ModalController,
+  RefresherCustomEvent,
 } from '@ionic/angular/standalone';
 import {AppointmentService} from "../services/appointment.service";
 import {Appointment} from "../models/appointment";
@@ -41,7 +42,7 @@ export class AppointmentsPage implements OnInit {
     this.loadAppointments();
   }
 
-  loadAppointments(): void {
+  loadAppointments(event?: any): void {
     this.appointmentService.getAppointmentsByClient().subscribe({
       next: (data: ClientAppointments) => {
         this.approvedAppointments = data.approvedAppointments.map((x: Appointment) =>
@@ -53,9 +54,11 @@ export class AppointmentsPage implements OnInit {
         this.inProgressAppointments = data.inProgressAppointments.map((x: Appointment) =>
           Object.assign(new Appointment(), x),
         );
+        event?.target.complete();
       },
       error: (err: any) => {
         console.error(err);
+        event?.target.complete();
       },
     });
   }

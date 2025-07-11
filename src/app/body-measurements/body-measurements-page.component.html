@@ -1,8 +1,6 @@
 <ion-content [fullscreen]="true" class="ion-no-padding">
   <ion-refresher slot="fixed"
-                 refreshingSpinner="circles"
-                 refreshingText="Loading Body Measurements..."
-                 (ionRefresh)="loadBodyMeasurements()">
+                 (ionRefresh)="loadBodyMeasurements($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-accordion-group>

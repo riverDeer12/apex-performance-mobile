@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
   IonButton,
@@ -56,6 +56,8 @@ export class AppointmentFormPage implements OnInit {
 
   submit(): void {
     this.loadingData = true;
+
+    console.log(this.form.value);
 
     if (this.form.invalid) {
 
