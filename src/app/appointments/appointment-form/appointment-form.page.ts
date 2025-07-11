@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
@@ -31,6 +31,7 @@ import {ClientService} from 'src/app/services/client.service';
 export class AppointmentFormPage implements OnInit {
 
   @Input() currentClient!: Client;
+  @Output() closeModal = new EventEmitter<boolean>;
 
   form!: FormGroup;
   appointmentTypes!: CatalogData[];
@@ -57,8 +58,6 @@ export class AppointmentFormPage implements OnInit {
   submit(): void {
     this.loadingData = true;
 
-    console.log(this.form.value);
-
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -77,6 +76,7 @@ export class AppointmentFormPage implements OnInit {
     this.appointmentService.createAppointment(this.form.value).subscribe({
       next: (response: Appointment) => {
         this.messageService.showSuccessMessage('Appointment is created successfully.').then();
+        this.closeModal.emit(true);
       },
       error: (error) => {
         this.messageService.showErrorMessage('An unexpected error occurred.').then();

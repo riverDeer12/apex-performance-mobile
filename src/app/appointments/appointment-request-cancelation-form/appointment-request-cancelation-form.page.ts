@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
@@ -23,6 +23,7 @@ import {StatusResponse} from "../../models/status-response";
 export class AppointmentRequestCancelationFormPage implements OnInit {
   @Input() currentClient!: Client;
   @Input() appointmentId!: string;
+  @Output() closeModal = new EventEmitter<boolean>;
 
   form!: FormGroup;
 
@@ -64,6 +65,7 @@ export class AppointmentRequestCancelationFormPage implements OnInit {
     this.appointmentService.createCancelationRequest(this.form.value, this.appointmentId).subscribe({
       next: (response: StatusResponse) => {
         this.messageService.showSuccessMessage('Cancelation Request is created successfully.').then();
+        this.closeModal.emit(true);
       },
       error: (error) => {
         this.messageService.showErrorMessage('An unexpected error occurred.').then();

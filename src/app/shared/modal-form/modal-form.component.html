@@ -12,10 +12,12 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <app-appointment-form
     *ngIf="type === entityType.Appointment"
+    (closeModal)="close()"
     [currentClient]="currentClient"
   ></app-appointment-form>
   <app-appointment-request-cancelation-form
     *ngIf="type === entityType.AppointmentRequest"
+    (closeModal)="close()"
     [currentClient]="currentClient"
     [appointmentId]="appointmentId"
   ></app-appointment-request-cancelation-form>
