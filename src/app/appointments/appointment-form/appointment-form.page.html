@@ -31,8 +31,12 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-button class="ion-padding-vertical" type="submit" expand="full">
-        Create Appointment
+      <ion-button type="submit" class="ion-padding-top" fill="outline" color="primary" expand="full"
+                  [disabled]="loadingData">
+        <span *ngIf="!loadingData">Create Appointment</span>
+        <ion-icon *ngIf="!loadingData" name="log-in-outline"></ion-icon>
+        <ion-spinner *ngIf="loadingData" name="dots"
+                     color="primary"></ion-spinner>
       </ion-button>
     </form>
   </ion-list>

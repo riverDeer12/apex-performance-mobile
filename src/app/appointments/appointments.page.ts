@@ -64,6 +64,7 @@ export class AppointmentsPage implements OnInit {
     const modal = await this.modalController.create({
       component: ModalFormComponent,
       componentProps: {
+        title: "New Appointment",
         type: EntityType.Appointment,
         currentClient: this.currentClient
       }

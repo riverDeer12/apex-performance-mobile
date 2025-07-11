@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import {Component, ViewChild} from '@angular/core';
+import {IonApp, IonRouterOutlet, Platform} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,12 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet]
 })
 export class AppComponent {
-  constructor() {}
+
+  @ViewChild(IonRouterOutlet, {static: true}) routerOutlet!: IonRouterOutlet;
+
+  constructor(private platform: Platform) {
+    this.platform.ready().then(() => {
+      this.routerOutlet.swipeGesture = false;
+    });
+  }
 }

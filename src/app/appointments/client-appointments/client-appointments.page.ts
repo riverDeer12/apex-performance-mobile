@@ -38,6 +38,7 @@ export class ClientAppointmentsPage {
     const modal = await this.modalController.create({
       component: ModalFormComponent,
       componentProps: {
+        title: "Cancelation Request",
         type: EntityType.AppointmentRequest,
         currentClient: this.currentClient,
         appointmentId: appointmentId

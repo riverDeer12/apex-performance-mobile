@@ -4,11 +4,11 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {
   IonButton,
   IonContent,
-  IonDatetime,
+  IonDatetime, IonIcon,
   IonItem,
   IonList,
   IonSelect,
-  IonSelectOption
+  IonSelectOption, IonSpinner
 } from '@ionic/angular/standalone';
 import {CatalogData} from "../../models/catalog-data";
 import {Coach} from 'src/app/models/coach';
@@ -26,7 +26,7 @@ import {ClientService} from 'src/app/services/client.service';
   styleUrls: ['./appointment-form.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, IonList, IonItem,
-    ReactiveFormsModule, IonSelect, IonSelectOption, IonDatetime, IonButton]
+    ReactiveFormsModule, IonSelect, IonSelectOption, IonDatetime, IonButton, IonIcon, IonSpinner]
 })
 export class AppointmentFormPage implements OnInit {
 

@@ -5,8 +5,12 @@
         <ion-textarea label="Comment" placeholder="Describe reason for appointment cancelation..."
                       formControlName="comment"></ion-textarea>
       </ion-item>
-      <ion-button class="ion-padding-vertical" type="submit" expand="full">
-        Send Request
+      <ion-button type="submit" class="ion-padding-top" fill="outline" color="primary" expand="full"
+                  [disabled]="loadingData">
+        <span *ngIf="!loadingData">Send Request</span>
+        <ion-icon *ngIf="!loadingData" name="log-in-outline"></ion-icon>
+        <ion-spinner *ngIf="loadingData" name="dots"
+                     color="primary"></ion-spinner>
       </ion-button>
     </form>
   </ion-list>

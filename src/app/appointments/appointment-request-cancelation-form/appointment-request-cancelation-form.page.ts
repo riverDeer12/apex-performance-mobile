@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
   IonButton,
-  IonContent,
+  IonContent, IonIcon,
   IonItem,
-  IonList, IonTextarea
+  IonList, IonSpinner, IonTextarea
 } from '@ionic/angular/standalone';
 import {Client} from "../../models/client";
 import {AppointmentService} from "../../services/appointment.service";
@@ -17,7 +17,8 @@ import {StatusResponse} from "../../models/status-response";
   templateUrl: './appointment-request-cancelation-form.page.html',
   styleUrls: ['./appointment-request-cancelation-form.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonButton, IonItem, IonList, ReactiveFormsModule, IonTextarea]
+  imports: [IonContent, CommonModule, FormsModule, IonButton, IonItem, IonList,
+    ReactiveFormsModule, IonTextarea, IonIcon, IonSpinner]
 })
 export class AppointmentRequestCancelationFormPage implements OnInit {
   @Input() currentClient!: Client;
@@ -53,6 +54,12 @@ export class AppointmentRequestCancelationFormPage implements OnInit {
     this.createCancelationRequest();
   }
 
+  private initForm() {
+    this.form = this.formBuilder.group({
+      comment: ["", [Validators.required]]
+    });
+  }
+
   private createCancelationRequest() {
     this.appointmentService.createCancelationRequest(this.form.value, this.appointmentId).subscribe({
       next: (response: StatusResponse) => {
@@ -66,11 +73,4 @@ export class AppointmentRequestCancelationFormPage implements OnInit {
       },
     });
   }
-
-  private initForm() {
-    this.form = this.formBuilder.group({
-      comment: ["", [Validators.required]]
-    });
-  }
-
 }
