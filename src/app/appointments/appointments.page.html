@@ -1,4 +1,10 @@
 <ion-content [fullscreen]="true" class="ion-no-padding">
+  <ion-refresher slot="fixed"
+                 refreshingSpinner="circles"
+                 refreshingText="Loading Appointments..."
+                 (ionRefresh)="loadAppointments()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <app-client-appointments [currentClient]="currentClient" [appointments]="approvedAppointments"
                            type="Approved"></app-client-appointments>
   <app-client-appointments [currentClient]="currentClient" [appointments]="inProgressAppointments"

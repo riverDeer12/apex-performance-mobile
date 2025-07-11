@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  IonContent, IonFab, IonFabButton, IonIcon,
+  IonContent, IonFab, IonFabButton, IonIcon, IonRefresher, IonRefresherContent,
   ModalController,
 } from '@ionic/angular/standalone';
 import {AppointmentService} from "../services/appointment.service";
@@ -21,7 +21,7 @@ import {EntityType} from "../constants/entity-type";
   styleUrls: ['./appointments.page.scss'],
   standalone: true,
   imports: [IonContent, CommonModule, FormsModule, IonFab, IonFabButton, ClientAppointmentsPage,
-    IonIcon],
+    IonIcon, IonRefresherContent, IonRefresher],
   providers: [ModalController]
 })
 export class AppointmentsPage implements OnInit {
@@ -41,7 +41,7 @@ export class AppointmentsPage implements OnInit {
     this.loadAppointments();
   }
 
-  private loadAppointments(): void {
+  loadAppointments(): void {
     this.appointmentService.getAppointmentsByClient().subscribe({
       next: (data: ClientAppointments) => {
         this.approvedAppointments = data.approvedAppointments.map((x: Appointment) =>

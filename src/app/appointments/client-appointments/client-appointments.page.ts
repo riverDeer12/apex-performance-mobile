@@ -15,6 +15,7 @@ import {add, closeOutline} from "ionicons/icons";
 import {ModalFormComponent} from "../../shared/modal-form/modal-form.component";
 import { Client } from 'src/app/models/client';
 import {EntityType} from "../../constants/entity-type";
+import { BusinessStatuses } from 'src/app/constants/business-statuses';
 @Component({
   selector: 'app-client-appointments',
   templateUrl: './client-appointments.page.html',
@@ -29,6 +30,10 @@ export class ClientAppointmentsPage {
   @Input() currentClient!: Client;
   @Input() title!: string;
   @Input() type!: string;
+
+  public get businessStatuses(): typeof BusinessStatuses {
+    return BusinessStatuses;
+  }
 
   constructor(private modalController: ModalController) {
     addIcons({add, closeOutline});

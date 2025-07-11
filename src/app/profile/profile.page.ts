@@ -6,7 +6,7 @@ import {
   IonContent,
   IonIcon,
   IonItem, IonLabel,
-  IonList,
+  IonList
 } from '@ionic/angular/standalone';
 import {addIcons} from "ionicons";
 import {createOutline, logOutOutline} from "ionicons/icons";

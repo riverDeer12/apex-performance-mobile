@@ -5,7 +5,7 @@ import {
   IonAccordion, IonAccordionGroup,
   IonContent,
   IonItem,
-  IonLabel
+  IonLabel, IonRefresher, IonRefresherContent
 } from '@ionic/angular/standalone';
 import {BodyMeasurementService} from "../services/body-measurement.service";
 import {BodyMeasurement} from "../models/body-measurement";
@@ -15,7 +15,8 @@ import {BodyMeasurement} from "../models/body-measurement";
   templateUrl: './body-measurements-page.component.html',
   styleUrls: ['./body-measurements-page.component.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonAccordion, IonLabel, IonItem, IonAccordionGroup]
+  imports: [IonContent, CommonModule, FormsModule, IonAccordion, IonLabel, IonItem, IonAccordionGroup,
+    IonRefresher, IonRefresherContent]
 })
 export class BodyMeasurementsPage implements OnInit {
 
@@ -25,10 +26,10 @@ export class BodyMeasurementsPage implements OnInit {
   }
 
   ngOnInit() {
-      this.loadBodyMeasurements();
+    this.loadBodyMeasurements();
   }
 
-  private loadBodyMeasurements(): void {
+  loadBodyMeasurements(): void {
     this.bodyMeasurementService.getClientBodyMeasurements().subscribe({
       next: (data: BodyMeasurement[]) => {
         this.bodyMeasurements = data.map((x: BodyMeasurement) =>
