@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true" class="ion-no-padding">
+  <ion-refresher slot="fixed"
+                 (ionRefresh)="loadAppointmentRequests($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list class="ion-padding-vertical">
+    <p class="ion-padding-horizontal" *ngIf="!appointmentRequests?.length">There are no appointment requests.</p>
+    <ion-item-sliding *ngFor="let appointmentRequest of appointmentRequests">
+      <ion-item [button]="true">
+        <ion-label>{{ appointmentRequest.type.name }}
+        </ion-label>
+        <ion-label>{{ appointmentRequest.status.name }} at {{ appointmentRequest.updatedAt | date: 'dd.MM.yyyy HH:mm' }}
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

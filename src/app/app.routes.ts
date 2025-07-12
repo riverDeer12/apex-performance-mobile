@@ -42,4 +42,8 @@ export const routes: Routes = [
     path: 'appointment-request-cancelation-form',
     loadComponent: () => import('./appointments/appointment-request-cancelation-form/appointment-request-cancelation-form.page').then( m => m.AppointmentRequestCancelationFormPage)
   },
+  {
+    path: 'appointment-requests',
+    loadComponent: () => import('./appointment-requests/appointment-requests.page').then( m => m.AppointmentRequestsPage)
+  },
 ];
