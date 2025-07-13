@@ -3,12 +3,12 @@
     <app-appointments [currentClient]="currentClient"></app-appointments>
   </ion-tab>
 
-  <ion-tab tab="appointment-requests">
-    <app-appointment-requests [currentClient]="currentClient"></app-appointment-requests>
-  </ion-tab>
-
   <ion-tab tab="body-measurements">
     <app-body-measurements></app-body-measurements>
+  </ion-tab>
+
+  <ion-tab tab="appointment-requests">
+    <app-appointment-requests [currentClient]="currentClient"></app-appointment-requests>
   </ion-tab>
 
   <ion-tab tab="profile">
@@ -16,21 +16,26 @@
   </ion-tab>
 
   <ion-tab-bar slot="bottom">
+
     <ion-tab-button tab="appointments">
       <ion-icon name="calendar-number-outline"></ion-icon>
       Appointments
     </ion-tab-button>
-    <ion-tab-button tab="appointment-requests">
-      <ion-icon name="create-outline"></ion-icon>
-      Requests
-    </ion-tab-button>
+
     <ion-tab-button tab="body-measurements">
       <ion-icon name="scale-outline"></ion-icon>
       Body Measurements
     </ion-tab-button>
+
+    <ion-tab-button tab="appointment-requests">
+      <ion-icon name="create-outline"></ion-icon>
+      Requests
+    </ion-tab-button>
+
     <ion-tab-button tab="profile">
       <ion-icon name="person-outline"></ion-icon>
       Profile
     </ion-tab-button>
+
   </ion-tab-bar>
 </ion-tabs>

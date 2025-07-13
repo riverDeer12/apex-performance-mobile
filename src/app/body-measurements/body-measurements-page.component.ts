@@ -35,7 +35,7 @@ export class BodyMeasurementsPage implements OnInit {
         this.bodyMeasurements = data.map((x: BodyMeasurement) =>
           Object.assign(new BodyMeasurement(), x),
         );
-        event.target.complete();
+        event?.target.complete();
       },
       error: (err: any) => {
         console.error(err);
